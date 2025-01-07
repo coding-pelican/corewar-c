@@ -7,7 +7,7 @@
 #include <memoryapi.h>
 #include <winnt.h>
 
-static void __attribute__((constructor)) strUtf8__init(void) {
+static void __attribute__((constructor)) str_utf8_init(void) {
     static bool initialized = false;
     if (initialized) { return; }
     /* Set locale for proper UTF-8 handling */

@@ -11,14 +11,20 @@
  * @details
  */
 
+#ifndef STR_INCLUDED
+#define STR_INCLUDED (1)
+#if defined(__cplusplus)
+extern "C" {
+#endif /* defined(__cplusplus) */
+
 #include "def.h"
 #include <string.h>
 
 #if PLATFORM_WINDOWS
 extern char* strndup(const char* str, size_t n);
-#endif
+#endif /* PLATFORM_WINDOWS */
 
-/* ========== Slices ======================================================= */
+/*========== Slices =========================================================*/
 
 /* Slice types */
 
@@ -35,11 +41,16 @@ typedef union u_sli_u8 {
     t_sli_const_u8 as_const;
 } t_sli_u8;
 
-/* ========== Strings ====================================================== */
+/*========== Strings ========================================================*/
 
 /* String types */
 typedef t_sli_const_u8 t_str_const;
 typedef t_sli_u8       t_str;
+
+// For string literals (read-only)
+#define literal_str(_lit) ((t_str_const){ .ptr = (const u8*)"" _lit, .len = sizeof(_lit) - 1 })
+// For modifiable strings (creates new array)
+#define mutable_str(_lit) ((t_str){ .ptr = (u8[]){ "" _lit }, .len = sizeof(_lit) - 1 })
 
 /* Optional string types */
 typedef struct s_opt_str_const {
@@ -59,11 +70,6 @@ typedef struct s_opt_str {
 
 /* Core methods */
 
-// For string literals (read-only)
-#define literal_str(_lit) ((t_str_const){ .ptr = (const u8*)"" _lit, .len = sizeof(_lit) - 1 })
-// For modifiable strings (creates new array)
-#define mutable_str(_lit) ((t_str){ .ptr = (u8[]){ "" _lit }, .len = sizeof(_lit) - 1 })
-
 // Create StrConst from const u8* with explicit length
 extern t_str_const str_const(const u8* ptr, usize len);
 // Create Str from u8* with explicit length
@@ -82,7 +88,7 @@ extern t_str_const str_slice(t_str_const str, usize start, usize end);
 // Check if string contains substring
 extern bool        str_contains(t_str_const haystack, t_str_const needle);
 
-/* Sentinel-terminated slices */
+/*========== Sentinel-Terminated Slices =====================================*/
 
 typedef struct u_sli_z_const_u8 {
     const u8* ptr;
@@ -99,12 +105,10 @@ typedef union u_sli_z_u8 {
     t_sli_z_const_u8 as_const;
 } t_sli_z_u8;
 
-/* Sentinel-terminated strings */
+/*========== Sentinel-Terminated Strings ====================================*/
 
 typedef t_sli_z_const_u8 t_str_z_const;
 typedef t_sli_z_u8       t_str_z;
-
-/* memory utils */
 
 /*========== Memory Utilities ===============================================*/
 
@@ -120,3 +124,8 @@ extern void mem_copy_bytes(u8* dest, const u8* src, usize len);
 extern void mem_set_bytes(u8* dest, u8 value, usize len);
 // Compare two byte buffers
 extern bool mem_eql_bytes(const u8* lhs, const u8* rhs, usize len);
+
+#if defined(__cplusplus)
+} /* extern "C" */
+#endif /* defined(__cplusplus) */
+#endif /* STR_INCLUDED */

@@ -3,7 +3,7 @@
  * @author  Gyeongtae Kim(dev-dasae) <codingpelican@gmail.com>
  * @date    2024-10-27 (date of creation)
  * @updated 2024-11-22 (date of last update)
- * @version v1.0.0
+ * @version v0.1
  * @ingroup corewar/arch
  * @prefix  ARCH
  *
