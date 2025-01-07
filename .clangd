@@ -1,0 +1,44 @@
+############ Global ############
+################################
+---
+Index:
+  Background: Skip
+  StandardLibrary: No
+InlayHints:
+  Enabled: true
+  TypeNameLimit: 24
+  DeducedTypes: true
+  ParameterNames: true
+  Designators: true
+  BlockEnd: false
+Hover:
+  ShowAKA: true
+Diagnostics:
+  # Suppress diagnostics for paths containing '/include/c++/' or '/include/c/', which are typically the locations of system headers.
+  Suppress:
+    - ".*include/c/.*"
+    - ".*include/c\\+\\+/.*"
+  UnusedIncludes: None
+  MissingIncludes: None
+---
+If: # Apply this config conditionally
+  PathMatch: .*\.h # to all headers...
+  PathExclude:
+    - ".archive/.*" # except those under .archive/
+    - "drafts/.*" # or those under drafts/
+---
+# C Configs
+If:
+  PathMatch:
+    - .*\.c
+    - .*\.h
+CompileFlags:
+  Compiler: clang
+  Add: [-xc, -std=c17, -Wall, -Wextra, -Werror, -I../include]
+---
+# Header Configs
+If:
+  PathMatch:
+    - .*\.h
+CompileFlags:
+  Add: [-Wno-unused-function, -Wno-unused-variable, -Wno-unused-const-variable]

@@ -52,7 +52,7 @@ Mkfile.old
 dkms.conf
 
 # Local files
-# asm
-# corewar
+asm
+corewar
 *.s
 *.core

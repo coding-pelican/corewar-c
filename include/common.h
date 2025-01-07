@@ -1,21 +1,16 @@
-#ifndef COMMON_H
-# define COMMON_H
+#ifndef COMMON_INCLUDED
+#define COMMON_INCLUDED (1)
 
-# include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <stdint.h>
-# include <ctype.h>
-# include <unistd.h>
-# include <stdarg.h>
-# include <fcntl.h>
+#include <unistd.h>
+#include <stdarg.h>
+#include <fcntl.h>
 
-# include "terminate_errors.h"
+#include "def.h"
+#include "terminate_errors.h"
 
-# define BUFF_SIZE 1
+#define BUFF_SIZE 1
 
-bool	check_file_extension(char *file, char *ext);
-void	terminate(char *message);
+extern bool check_file_extension(const char* file, const char* ext);
+extern void terminate(const char* message);
 
-#endif
+#endif /* COMMON_INCLUDED */
